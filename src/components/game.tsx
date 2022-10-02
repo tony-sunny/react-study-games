@@ -19,9 +19,9 @@ const mapStateToProps = (state: RootState) => ({
   winner: getWinner(state),
   stepNumber: getStepNumber(state),
   isResetting: getResetStatus(state),
-  comb: createSelector(
+  desc: createSelector(
     [getWinner, getStepNumber],
-    (winner, stepNUmber) => `${winner}:${stepNUmber}`
+    (winner, stepNumber) => `${winner} won in ${stepNumber} moves`
   )(state),
 })
 
@@ -126,12 +126,7 @@ class Game extends React.PureComponent<Props, State> {
       }
     })
 
-    let status
-    if (winner) {
-      status = `Winner: ${winner}`
-    } else {
-      status = `Next player: ${this.state.xIsNext ? "X" : "O"}`
-    }
+    const status = winner ? this.props.desc : `Next player: ${this.state.xIsNext ? "X" : "O"}`
 
     return (
       <div className="game">
@@ -140,7 +135,6 @@ class Game extends React.PureComponent<Props, State> {
         </div>
         <div className="game-info">
           <button onClick={this.resetGame}>New Game</button>
-          <div>{this.props.comb}</div>
           <div>{status}</div>
           <ol>{moves}</ol>
         </div>

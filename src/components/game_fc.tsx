@@ -1,9 +1,9 @@
 import React, { useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import { createSelector } from "reselect"
 
 import Board from "./board"
 import { calculateWinner } from "../helpers/game"
-import { useAppDispatch, useAppSelector } from "../redux/hooks"
 import {
   setWinner,
   getWinner,
@@ -14,20 +14,22 @@ import {
 import { gameSagaActions } from "../sagas"
 
 type History = { squares: Array<string | null> }[]
-type Props = {}
 
-export default (props: Props) => {
+export default () => {
   const [history, setHistory] = useState<History>([{ squares: Array(9).fill(null) }])
   const [xIsNext, setXIsNext] = useState(true)
 
-  const winner = useAppSelector(getWinner)
-  const stepNumber = useAppSelector(getStepNumber)
-  const resetStatus = useAppSelector(getResetStatus)
-  const comb = useAppSelector(
-    createSelector([getWinner, getStepNumber], (winner, stepNUmber) => `${winner}:${stepNUmber}`)
+  const winner = useSelector(getWinner)
+  const stepNumber = useSelector(getStepNumber)
+  const resetStatus = useSelector(getResetStatus)
+  const desc = useSelector(
+    createSelector(
+      [getWinner, getStepNumber],
+      (winner, stepNumber) => `${winner} won in ${stepNumber} moves`
+    )
   )
 
-  const dispatch = useAppDispatch()
+  const dispatch = useDispatch()
 
   const resetGame = () => {
     dispatch(gameSagaActions.resetGame)
@@ -80,12 +82,7 @@ export default (props: Props) => {
     }
   })
 
-  let status
-  if (winner) {
-    status = `Winner: ${winner}`
-  } else {
-    status = `Next player: ${xIsNext ? "X" : "O"}`
-  }
+  const status = winner ? desc : `Next player: ${xIsNext ? "X" : "O"}`
 
   return (
     <div className="game">
@@ -94,7 +91,6 @@ export default (props: Props) => {
       </div>
       <div className="game-info">
         <button onClick={resetGame}>New Game</button>
-        <div>{comb}</div>
         <div>{status}</div>
         <ol>{moves}</ol>
       </div>
