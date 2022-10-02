@@ -1,0 +1,103 @@
+import React, { useState } from "react"
+import { createSelector } from "reselect"
+
+import Board from "./board"
+import { calculateWinner } from "../helpers/game"
+import { useAppDispatch, useAppSelector } from "../redux/hooks"
+import {
+  setWinner,
+  getWinner,
+  updateStepNumber,
+  getStepNumber,
+  getResetStatus,
+} from "../redux/reducers/game"
+import { gameSagaActions } from "../sagas"
+
+type History = { squares: Array<string | null> }[]
+type Props = {}
+
+export default (props: Props) => {
+  const [history, setHistory] = useState<History>([{ squares: Array(9).fill(null) }])
+  const [xIsNext, setXIsNext] = useState(true)
+
+  const winner = useAppSelector(getWinner)
+  const stepNumber = useAppSelector(getStepNumber)
+  const resetStatus = useAppSelector(getResetStatus)
+  const comb = useAppSelector(
+    createSelector([getWinner, getStepNumber], (winner, stepNUmber) => `${winner}:${stepNUmber}`)
+  )
+
+  const dispatch = useAppDispatch()
+
+  const resetGame = () => {
+    dispatch(gameSagaActions.resetGame)
+    setHistory([{ squares: Array(9).fill(null) }])
+    setXIsNext(true)
+  }
+
+  const handleClick = (i: number) => {
+    const currHistory = history.slice(0, stepNumber + 1)
+    const currentMove = currHistory[history.length - 1]
+    const squares = currentMove.squares.slice()
+
+    // Dont do anything if square is filled or game is finished
+    if (squares[i] || winner) {
+      return
+    }
+
+    squares[i] = xIsNext ? "X" : "O"
+    const calculatedWinner = calculateWinner(squares, stepNumber + 1)
+    setHistory(currHistory.concat({ squares }))
+    setXIsNext(!xIsNext)
+    dispatch(updateStepNumber(currHistory.length))
+    if (calculateWinner) {
+      dispatch(setWinner(calculatedWinner))
+    }
+  }
+
+  const jumpTo = (step: number) => {
+    const currentHistory = history.slice(0, step + 1)[history.length - 1]
+    const calculatedWinner = calculateWinner(currentHistory.squares, step)
+    setXIsNext(step % 2 === 0)
+    dispatch(updateStepNumber(step))
+    dispatch(setWinner(calculatedWinner))
+  }
+
+  if (resetStatus) {
+    return <p> Resetting.... </p>
+  }
+  const current = history[stepNumber]
+
+  const moves = history.map((_, move) => {
+    if (move) {
+      return (
+        <li key={move}>
+          <button onClick={() => jumpTo(move)}>{`Go to move ${move}`}</button>
+        </li>
+      )
+    } else {
+      return null
+    }
+  })
+
+  let status
+  if (winner) {
+    status = `Winner: ${winner}`
+  } else {
+    status = `Next player: ${xIsNext ? "X" : "O"}`
+  }
+
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board squares={current.squares} onClick={handleClick} />
+      </div>
+      <div className="game-info">
+        <button onClick={resetGame}>New Game</button>
+        <div>{comb}</div>
+        <div>{status}</div>
+        <ol>{moves}</ol>
+      </div>
+    </div>
+  )
+}

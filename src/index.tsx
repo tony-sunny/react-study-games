@@ -5,7 +5,7 @@ import { Provider } from "react-redux"
 import "./index.css"
 
 import { store } from "./redux/store"
-import Game from "./components/game"
+import Game from "./components/game_fc"
 
 const container = document.getElementById("app-root")
 const root = createRoot(container)

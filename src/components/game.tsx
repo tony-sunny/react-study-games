@@ -85,7 +85,6 @@ class Game extends React.PureComponent<Props, State> {
     this.setState(state => {
       return {
         history: history.concat({ squares }),
-        stepNumber: history.length,
         xIsNext: !state.xIsNext,
       }
     })
