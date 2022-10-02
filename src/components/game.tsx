@@ -5,7 +5,13 @@ import { createSelector } from "reselect"
 
 import Board from "./board"
 import { calculateWinner } from "../helpers/game"
-import { setWinner, getWinner, updateStepNumber, getStepNumber, getResetStatus } from "../redux/reducers/game"
+import {
+  setWinner,
+  getWinner,
+  updateStepNumber,
+  getStepNumber,
+  getResetStatus,
+} from "../redux/reducers/game"
 import { RootState } from "../redux/store"
 import { gameSagaActions } from "../sagas"
 
@@ -16,7 +22,7 @@ const mapStateToProps = (state: RootState) => ({
   comb: createSelector(
     [getWinner, getStepNumber],
     (winner, stepNUmber) => `${winner}:${stepNUmber}`
-  )(state)
+  )(state),
 })
 
 const mapDispatchToProps = {
@@ -30,7 +36,6 @@ const mapDispatchToProps = {
 //   setWinner: (winner: string | null) => dispatch(setWinner(winner)),
 //   resetGame: () => dispatch(gameSagaActions.resetGame),
 // }
-
 
 const connector = connect(mapStateToProps, mapDispatchToProps)
 

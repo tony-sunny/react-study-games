@@ -11,7 +11,7 @@ type GameState = {
 const initialState: GameState = {
   winner: null,
   stepNumber: 0,
-  isResetting: false
+  isResetting: false,
 }
 
 const gameSlice = createSlice({
