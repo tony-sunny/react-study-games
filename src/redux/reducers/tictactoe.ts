@@ -2,29 +2,29 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { RootState } from "../store"
 
-type GameState = {
+type TicTacToeState = {
   winner?: string
   stepNumber: number
   isResetting: boolean
 }
 
-const initialState: GameState = {
+const initialState: TicTacToeState = {
   winner: null,
   stepNumber: 0,
   isResetting: false,
 }
 
-const gameSlice = createSlice({
-  name: "game",
+const ticTacToeSlice = createSlice({
+  name: "tictactoe",
   initialState,
   reducers: {
-    setWinner: (state: GameState, action: PayloadAction<string | null>) => {
+    setWinner: (state: TicTacToeState, action: PayloadAction<string | null>) => {
       state.winner = action.payload
     },
-    updateStepNumber: (state: GameState, action: PayloadAction<number>) => {
+    updateStepNumber: (state: TicTacToeState, action: PayloadAction<number>) => {
       state.stepNumber = action.payload
     },
-    isResetting: (state: GameState) => {
+    isResetting: (state: TicTacToeState) => {
       state.isResetting = true
     },
     resetGame: () => {
@@ -33,7 +33,7 @@ const gameSlice = createSlice({
   },
 })
 
-const { actions, reducer } = gameSlice
+const { actions, reducer } = ticTacToeSlice
 
 export const getWinner = (state: RootState) => state.game.winner
 export const getStepNumber = (state: RootState) => state.game.stepNumber

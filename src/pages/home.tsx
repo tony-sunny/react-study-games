@@ -1,6 +1,4 @@
-import * as React from "react"
-import { Link } from "react-router-dom";
-
+import { Link } from "react-router-dom"
 
 export default () => {
   return (
@@ -9,6 +7,9 @@ export default () => {
       <ul>
         <li>
           <Link to={`/tic-tac-toe`}>Tic Tac Toe</Link>
+        </li>
+        <li>
+          <Link to={`/bingo`}>Bingo</Link>
         </li>
       </ul>
     </>

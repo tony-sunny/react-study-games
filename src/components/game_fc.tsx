@@ -1,16 +1,16 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { createSelector } from "reselect"
 
 import Board from "./board"
-import { calculateWinner } from "../helpers/game"
+import { calculateTicTacToeWinner } from "../helpers/game"
 import {
   setWinner,
   getWinner,
   updateStepNumber,
   getStepNumber,
   getResetStatus,
-} from "../redux/reducers/game"
+} from "../redux/reducers/tictactoe"
 import { gameSagaActions } from "../sagas"
 
 type History = { squares: Array<string | null> }[]
@@ -48,18 +48,18 @@ export default () => {
     }
 
     squares[i] = xIsNext ? "X" : "O"
-    const calculatedWinner = calculateWinner(squares, stepNumber + 1)
+    const calculatedWinner = calculateTicTacToeWinner(squares, stepNumber + 1)
     setHistory(currHistory.concat({ squares }))
     setXIsNext(!xIsNext)
     dispatch(updateStepNumber(currHistory.length))
-    if (calculateWinner) {
+    if (calculateTicTacToeWinner) {
       dispatch(setWinner(calculatedWinner))
     }
   }
 
   const jumpTo = (step: number) => {
     const currentHistory = history.slice(0, step + 1)[history.length - 1]
-    const calculatedWinner = calculateWinner(currentHistory.squares, step)
+    const calculatedWinner = calculateTicTacToeWinner(currentHistory.squares, step)
     setXIsNext(step % 2 === 0)
     dispatch(updateStepNumber(step))
     dispatch(setWinner(calculatedWinner))
@@ -84,10 +84,12 @@ export default () => {
 
   const status = winner ? desc : `Next player: ${xIsNext ? "X" : "O"}`
 
+  const squareProps = current.squares.map(s => ({ value: s }))
+
   return (
     <div className="game">
       <div className="game-board">
-        <Board squares={current.squares} onClick={handleClick} />
+        <Board type="tic-tac-toe" squares={squareProps} onClick={handleClick} />
       </div>
       <div className="game-info">
         <button onClick={resetGame}>New Game</button>

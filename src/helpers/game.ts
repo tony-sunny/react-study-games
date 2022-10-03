@@ -1,4 +1,23 @@
-export const calculateWinner = (squares: string[], stepNumber: number) => {
+export const makeBingoSquares = (fill: boolean = false) => {
+  return Array.from({ length: 25 }, (value: null, index) => ({
+    value: fill ? index + 1 : value,
+    isMarked: false,
+  }))
+}
+
+export const copyArrayShallow = <T extends Record<any, any>>(array: T[]) => {
+  return array.map(i => ({ ...i }))
+}
+
+export const shuffleArray = <T>(array: T[]) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[array[i], array[j]] = [array[j], array[i]]
+  }
+  return array
+}
+
+export const calculateTicTacToeWinner = (squares: string[], stepNumber: number) => {
   if (stepNumber < 5) {
     return null
   }

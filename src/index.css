@@ -17,6 +17,15 @@ ol, ul {
   margin-bottom: 10px;
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.game-info {
+  margin: 10px;
+}
+
 .square {
   background: #fff;
   border: 1px solid #999;
@@ -30,6 +39,10 @@ ol, ul {
   padding: 0;
   text-align: center;
   width: 50px;
+}
+
+.square.marked {
+  background: #9b9b9b
 }
 
 .winner {
