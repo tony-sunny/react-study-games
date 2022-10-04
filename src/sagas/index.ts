@@ -23,12 +23,12 @@ function* resetGame(action: PayloadAction<boolean>) {
   // has been changed by setState
   // if execute is not async this wont happen since since setState
   // calls are batched
-  yield put({ type: "game/isResetting" })
+  yield put({ type: "tictactoe/isResetting" })
   try {
     const status: string = yield call(execute, action.payload)
-    yield put({ type: "game/resetGame", payload: status })
+    yield put({ type: "tictactoe/resetGame", payload: status })
   } catch (e) {
-    yield put({ type: "game/resetGame", payload: e.message })
+    yield put({ type: "tictactoe/resetGame", payload: e.message })
   }
 }
 

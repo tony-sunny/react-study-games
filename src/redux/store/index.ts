@@ -8,7 +8,7 @@ const sagaMiddleware = createSagaMiddleware()
 
 export const store = configureStore({
   reducer: {
-    game: gameReducer,
+    tictactoe: gameReducer,
   },
   middleware: [sagaMiddleware],
 })

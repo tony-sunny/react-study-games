@@ -35,9 +35,9 @@ const ticTacToeSlice = createSlice({
 
 const { actions, reducer } = ticTacToeSlice
 
-export const getWinner = (state: RootState) => state.game.winner
-export const getStepNumber = (state: RootState) => state.game.stepNumber
-export const getResetStatus = (state: RootState) => state.game.isResetting
+export const getWinner = (state: RootState) => state.tictactoe.winner
+export const getStepNumber = (state: RootState) => state.tictactoe.stepNumber
+export const getResetStatus = (state: RootState) => state.tictactoe.isResetting
 
 export const { setWinner, updateStepNumber, resetGame } = actions
 
