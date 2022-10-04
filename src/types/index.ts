@@ -1,3 +1,5 @@
+export type Primtives = string | number | boolean | null
+
 export type BingoSquare = {
   value: number | null
   isMarked: boolean

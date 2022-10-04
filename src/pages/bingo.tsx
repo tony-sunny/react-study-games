@@ -68,7 +68,7 @@ const Bingo = () => {
     if (isGameStarted && !winner && !isPlayerNext) {
       const { computer } = squares
       // just mark randomly without any strategy
-      const unmarked = computer.reduce((acc, c, index) => {
+      const unmarked = computer.reduce((acc: number[], c, index) => {
         if (!c.isMarked) {
           acc.push(index)
         }
@@ -158,9 +158,7 @@ const Bingo = () => {
     }
   }
 
-  const handleCheckBox = () => {
-    setShowComputer(!showComputer)
-  }
+  const handleCheckBox = () => setShowComputer(!showComputer)
 
   return (
     <div className="game">

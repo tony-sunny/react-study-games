@@ -1,4 +1,4 @@
-import { BingoPlayer, BingoSquare } from "../types/index"
+import { BingoPlayer, BingoSquare, Primitives } from "../types/index"
 
 export const makeBingoSquares = (fill: boolean = false) => {
   return Array.from({ length: 25 }, (value: null, index) => ({
@@ -7,7 +7,7 @@ export const makeBingoSquares = (fill: boolean = false) => {
   }))
 }
 
-export const copyArrayShallow = <T extends Record<any, any>>(array: T[]) => {
+export const copyArrayShallow = <T extends Record<string, Primitives>>(array: T[]) => {
   return array.map(i => ({ ...i }))
 }
 
@@ -83,9 +83,9 @@ export const calculateBingoWinner = (squares: Squares, moveBy: BingoPlayer) => {
   if (bothWon) {
     return moveBy
   } else if (isPlayerWon) {
-    return "player"
+    return BingoPlayer.PLAYER
   } else if (isComputerWon) {
-    return "computer"
+    return BingoPlayer.COMPUTER
   } else {
     return null
   }
