@@ -11,12 +11,8 @@ export const gameSagaActions = {
   resetGame: { type: "GAME_RESET_REQUESTED", payload: true },
 }
 
-function* helloSaga() {
-  console.log("Hello Sagas!")
-}
-
 function* resetGame(action: PayloadAction<boolean>) {
-  // in this resetGame handler function inside component
+  // Inside resetGame handler function inside component
   // we called setState and props.resetGame together. We
   // need a status like below because component will rerender
   // when GAME_RESET_REQUESTED action is dispatched since state
@@ -38,8 +34,6 @@ function* watchGameResetSaga() {
 
 export function* rootSaga() {
   yield all([
-    // no action, so runs on load
-    helloSaga(),
     watchGameResetSaga(),
   ])
 }

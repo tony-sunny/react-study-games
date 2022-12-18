@@ -6,6 +6,17 @@ module.exports = {
   mode: "development",
   entry: './src/index.tsx',
   devtool: 'inline-source-map',
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
+  },
   plugins: [
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
@@ -32,7 +43,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    filename: 'main.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, '.build'),
   },
 };
