@@ -33,7 +33,5 @@ function* watchGameResetSaga() {
 }
 
 export function* rootSaga() {
-  yield all([
-    watchGameResetSaga(),
-  ])
+  yield all([watchGameResetSaga()])
 }

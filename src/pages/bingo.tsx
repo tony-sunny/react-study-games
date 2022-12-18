@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react"
 
 import Board from "../components/board"
-import {
-  calculateBingoWinner,
-  copyArrayShallow,
-  makeBingoSquares,
-  shuffleArray,
-} from "../helpers/game"
+import { copyArrayShallow, shuffleArray } from "../helpers"
+import { calculateBingoWinner, makeBingoSquares } from "../helpers/game"
 import { BingoPlayer, BoardSquare } from "../types"
 
 const Bingo = () => {
