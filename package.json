@@ -12,12 +12,15 @@
     "reselect": "^4.1.7"
   },
   "scripts": {
-    "build": "webpack --watch",
-    "prettier": "prettier --write \"src/**/*.{ts,tsx}\""
+    "build": "rm -rf .build/ && webpack --config webpack.prod.ts",
+    "build:dev": "webpack --watch --config webpack.dev.ts",
+    "prettier": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "start": "cd .build && python3 -m http.server"
   },
   "devDependencies": {
     "@types/react-dom": "^18.0.9",
     "css-loader": "^6.7.3",
+    "css-minimizer-webpack-plugin": "^4.2.2",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.7.2",
     "prettier": "2.8.1",
@@ -25,6 +28,7 @@
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4",
     "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
+    "webpack-cli": "^5.0.1",
+    "webpack-merge": "^5.8.0"
   }
 }

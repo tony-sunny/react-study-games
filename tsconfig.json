@@ -1,19 +1,15 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
     "lib": [
-      "es6",
-      "es2017",
       "dom"
     ],
-    "allowSyntheticDefaultImports": true,
-    "outDir": "./build",
-    "noImplicitAny": true,
     "module": "commonjs",
-    "target": "es5",
-    "jsx": "react",
-    "allowJs": true,
     "moduleResolution": "node",
-    "esModuleInterop": true,
-    "jsx": "react-jsx"
+    "noImplicitAny": true,
+    "outDir": "./build",
+    "target": "es5",
   }
 }

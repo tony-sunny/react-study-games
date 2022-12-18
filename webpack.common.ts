@@ -2,30 +2,8 @@ import path from "path"
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
-module.exports = {
-  mode: "development",
+export default {
   entry: './src/index.tsx',
-  devtool: 'inline-source-map',
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
-        }
-      }
-    }
-  },
-  plugins: [
-    new MiniCssExtractPlugin(),
-    new HtmlWebpackPlugin({
-      hash: true,
-      title: "Games",
-      template: "./src/index.html",
-      fileName: "./build/index.html"
-    })
-  ],
   module: {
     rules: [
       {
@@ -39,11 +17,31 @@ module.exports = {
       },
     ],
   },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all' as const,
+        }
+      }
+    }
   },
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, '.build'),
+  },
+  plugins: [
+    new MiniCssExtractPlugin(),
+    new HtmlWebpackPlugin({
+      hash: true,
+      title: "Games",
+      template: "./src/index.html",
+      fileName: "./build/index.html",
+    })
+  ],
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
   },
 };
