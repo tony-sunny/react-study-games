@@ -75,7 +75,7 @@ const isBingo = (squares: BingoSquare[]) => {
 
 type Squares = { computer: BingoSquare[]; player: BingoSquare[] }
 
-export const calculateBingoWinner = (squares: Squares, moveBy: BingoPlayer) => {
+export const calculateBingoWinner = (squares: Squares, moveBy: BingoPlayer): BingoPlayer | null => {
   const { computer, player } = squares
   const isPlayerWon = isBingo(player)
   const isComputerWon = isBingo(computer)

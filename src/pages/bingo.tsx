@@ -82,11 +82,8 @@ const Bingo = () => {
   }, [isGameStarted, isPlayerNext])
 
   const handleClick = (i: number) => {
-    if (winner) {
-      return
-    }
-    // game begun and its computer's turn
-    if (isGameStarted && !isPlayerNext) {
+    // game over or game begun and its computer's turn
+    if (winner || (isGameStarted && !isPlayerNext)) {
       return
     }
     const { player, computer } = squares
@@ -134,7 +131,7 @@ const Bingo = () => {
       computer: shuffleArray(compSquaresCopy),
     })
     setGameStarted(true)
-    setIsPlayerNext(Math.floor(Math.random() * 2) == 0)
+    setIsPlayerNext(Math.random() >= 0.5)
   }
 
   const resetGame = () => {
