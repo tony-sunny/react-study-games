@@ -30,12 +30,6 @@ const mapDispatchToProps = {
   setWinner: (winner: string | null) => setWinner(winner),
   resetGame: () => gameSagaActions.resetGame,
 }
-// If argument needed
-// const mapDispatchToProps = (dispatch: Dispatch, ownProps) => {
-//   updateStepNumber: (step: number) => dispatch(updateStepNumber(step)),
-//   setWinner: (winner: string | null) => dispatch(setWinner(winner)),
-//   resetGame: () => dispatch(gameSagaActions.resetGame),
-// }
 
 const connector = connect(mapStateToProps, mapDispatchToProps)
 
